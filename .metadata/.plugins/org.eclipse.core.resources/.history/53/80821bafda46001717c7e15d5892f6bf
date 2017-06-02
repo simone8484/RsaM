@@ -1,0 +1,54 @@
+package com.gestioneStruttura.model;
+
+import java.util.LinkedList;
+
+
+public class Struttura {
+	
+	 private static Struttura struttura;
+
+	
+	LinkedList<Reparto> listaReparti = new LinkedList<Reparto>();
+	Reparto reparto= null;
+	
+	private Struttura(){
+		
+	}
+	
+	public static Struttura getInstance()
+	  {
+	    if (struttura == null)
+	    {
+	      struttura = new Struttura();
+	    }
+
+	    return struttura;
+	  }
+	
+	public Reparto creaReparto(String nome, String tipologia, String collocazioneFisica, int numeroStanzeSingole, int numeroStanzeDoppie){
+		Reparto rep = new Reparto(nome, tipologia, collocazioneFisica, numeroStanzeSingole, numeroStanzeDoppie);
+		return rep;
+	}
+	
+	
+	public void inserisciNuovoReparto(Reparto r){
+		listaReparti.add(r);
+	}
+	
+	public void getReparti(){
+	      for (Reparto rep : listaReparti) 
+	    	 System.out.println(rep);
+	    	 System.out.println();
+	}
+	
+	public Reparto selezionaReparto(String nomeReparto){
+		for (Reparto rep : listaReparti)
+		 if(rep.getNome().equals(nomeReparto)){
+         reparto = rep;
+  	  }
+		return reparto;
+	}
+	
+	
+
+}

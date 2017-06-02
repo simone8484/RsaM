@@ -1,0 +1,34 @@
+package com.gestioneUtente.model;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="UTENTI")
+@DiscriminatorValue("O")
+public class OperatoreSanitario extends Utente {
+	
+	@Column(name="qualifica", length=20, nullable=true)
+	private String qualifica;
+
+	public OperatoreSanitario(){
+		
+	}
+	
+	public OperatoreSanitario(String nome, String cognome, String mansione, String eMail, String codiceFiscale, String qualifica) {
+		super(nome, cognome, mansione, eMail, codiceFiscale);
+		this.qualifica = qualifica;
+		
+	}
+
+	public String getQualifica() {
+		return qualifica;
+	}
+
+	public void setQualifica(String qualifica) {
+		this.qualifica = qualifica;
+	}
+
+}

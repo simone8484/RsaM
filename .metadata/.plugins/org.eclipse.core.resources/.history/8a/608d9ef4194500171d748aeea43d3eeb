@@ -1,0 +1,116 @@
+package com.gestioneStruttura.model;
+
+import java.util.LinkedList;
+import com.gestioneUtente.model.OperatoreSanitario;
+import com.utility.*;
+
+public class Reparto {
+	
+    private int id;
+	private String nome;
+	private String tipologia;
+	private String collocazioneFisica;
+	private int numeroStanzeSingoleTotali;
+	private int numeroStanzeDoppieTotali;
+	private int numeroStanzeSingoleDisponibili;
+	private int numeroStanzeDoppieDisponibili;
+	private String codiceFiscaleResponsabileReparto;
+	private PersonaleReparto pr;
+	LinkedList<PersonaleReparto> personale = new LinkedList<PersonaleReparto>();
+	
+	public Reparto(){
+		
+	}
+	
+	public Reparto(String nome, String tipologia, String collocazioneFisica, int numeroStanzeSingole, int numeroStanzeDoppie) {
+		this.nome = nome;
+		this.tipologia = tipologia;
+		this.collocazioneFisica = collocazioneFisica;
+		this.numeroStanzeSingoleTotali = numeroStanzeSingole;
+		this.numeroStanzeDoppieTotali = numeroStanzeDoppie;
+		this.numeroStanzeDoppieDisponibili = numeroStanzeDoppie;
+		this.numeroStanzeSingoleDisponibili = numeroStanzeSingole;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getTipologia() {
+		return tipologia;
+	}
+
+	public void setTipologia(String tipologia) {
+		this.tipologia = tipologia;
+	}
+
+	public String getCollocazioneFisica() {
+		return collocazioneFisica;
+	}
+
+	public void setCollocazioneFisica(String collocazioneFisica) {
+		this.collocazioneFisica = collocazioneFisica;
+	}
+
+	public int getNumeroStanzeSingole() {
+		return numeroStanzeSingoleTotali;
+	}
+
+	public void setNumeroStanzeSingole(int numeroStanzeSingole) {
+		this.numeroStanzeSingoleTotali = numeroStanzeSingole;
+	}
+
+	public int getNumeroStanzeDoppie() {
+		return numeroStanzeDoppieTotali;
+	}
+
+	public void setNumeroStanzeDoppie(int numeroStanzeDoppie) {
+		this.numeroStanzeDoppieTotali = numeroStanzeDoppie;
+	}
+	
+	public void aggiungiPersonale(OperatoreSanitario m){
+		this.pr = new PersonaleReparto(this.nome, OperazioniData.getDataAttuale(), m);
+		personale.add(pr);
+	}
+	
+	
+	
+	public void getPersonale(){
+		for(PersonaleReparto personaleReparto : personale)
+			personaleReparto.getPersonale();
+	}
+
+	@Override
+	public String toString() {
+		return "Reparto [nome=" + nome + ", tipologia=" + tipologia + ", collocazioneFisica=" + collocazioneFisica
+				+ ", numeroStanzeSingoleTotali=" + numeroStanzeSingoleTotali + ", numeroStanzeDoppieTotali="
+				+ numeroStanzeDoppieTotali + ", numeroStanzeSingoleDisponibili=" + numeroStanzeSingoleDisponibili
+				+ ", numeroStanzeDoppieDisponibili=" + numeroStanzeDoppieDisponibili
+				+ ", codiceFiscaleResponsabileReparto=" + codiceFiscaleResponsabileReparto + "]";
+	}
+
+	public String getCodiceFiscaleResponsabileReparto() {
+		return codiceFiscaleResponsabileReparto;
+	}
+
+	public void setCodiceFiscaleResponsabileReparto(String codiceFiscaleResponsabileReparto) {
+		this.codiceFiscaleResponsabileReparto = codiceFiscaleResponsabileReparto;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	
+	
+  
+	
+}

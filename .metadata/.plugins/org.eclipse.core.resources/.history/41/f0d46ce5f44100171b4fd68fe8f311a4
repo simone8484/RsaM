@@ -1,0 +1,115 @@
+package com.gestioneUtente.controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Criteria;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+
+import com.gestioneUtente.model.Utente;
+
+import com.gestioneUtente.model.Animale;
+
+/**
+ * Servlet implementation class GestioneUtenteHandler
+ */
+@WebServlet("/GestioneUtenteHandler.do")
+public class GestioneUtenteHandler extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public GestioneUtenteHandler() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		Configuration config = new Configuration().configure();
+		ServiceRegistry servReg = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
+		SessionFactory factory = config.buildSessionFactory(servReg);
+		
+		Session session = factory.openSession();
+		org.hibernate.Transaction tr = session.beginTransaction();
+		
+		Criteria criteria = session.createCriteria(Utente.class);
+		List utenti = criteria.list();
+		tr.commit();
+		session.close();
+		
+		Iterator itr = utenti.iterator();
+		while (itr.hasNext()) {
+
+			Utente u = (Utente) itr.next();
+
+			if(u.getCodiceFiscale().equals(request.getParameter("codiceFiscale"))){
+				request.setAttribute("user", u.getCodiceFiscale());
+				request.setAttribute("nome", u.getNome());
+				request.setAttribute("privilegi", u.getPrivilegi());
+				char[] temp = u.getPrivilegi().toCharArray();
+				request.setAttribute("temp", temp);
+				
+				//List<String> menuPrincipale = costruisciMenuPrincipale(temp);
+				//request.setAttribute("menuPrincipale", menuPrincipale);
+
+			}
+			
+			
+		}
+		
+		request.setAttribute("utenti", utenti);
+		RequestDispatcher view = request.getRequestDispatcher("startpage.jsp");
+		view.forward(request, response);
+	}
+	
+	public List<String> costruisciMenuPrincipale(char[] v){
+		List<String> voceMenu = null;
+		if(v[0] == '1'){
+			voceMenu.add("gestione ospite");
+			voceMenu.add("gestione attività");
+			voceMenu.add("gestione notifiche");
+		}
+		if(v[1]=='1' || v[2]== '1'){
+			voceMenu.add("visualizza reparto");
+		}
+		
+		if(v[3] == '1'){
+			voceMenu.add("gestione contabilità");
+		}
+		if(v[4] == 1){
+			voceMenu.add("gestione ubicazione");
+			voceMenu.add("gestione personale");
+			voceMenu.add("gestione reparto");
+		}
+		
+		return voceMenu;
+	}
+
+}

@@ -1,0 +1,21 @@
+package com.gestioneUtente.model;
+
+public class OperatoreSanitario extends Utente {
+	
+	private String qualifica;
+
+	public OperatoreSanitario( String nome, String cognome, String mansione, String qualifica, String eMail, int stato, String codiceFiscale) {
+		super(nome, cognome, mansione, eMail, codiceFiscale, codiceFiscale, stato, codiceFiscale);
+		this.qualifica = qualifica;
+		
+	}
+
+	public String getQualifica() {
+		return qualifica;
+	}
+
+	public void setQualifica(String qualifica) {
+		this.qualifica = qualifica;
+	}
+
+}

@@ -1,0 +1,87 @@
+package com.gestioneStruttura.model;
+
+import java.util.LinkedList;
+import com.gestioneUtente.model.OperatoreSanitario;;
+
+
+public class Reparto {
+	
+	private String nome;
+	private String tipologia;
+	private String collocazioneFisica;
+	private int numeroStanzeSingole;
+	private int numeroStanzeDoppie;
+	private PersonaleReparto pr;
+	LinkedList<PersonaleReparto> personale = new LinkedList<PersonaleReparto>();
+	
+	public Reparto(String nome, String tipologia, String collocazioneFisica, int numeroStanzeSingole, int numeroStanzeDoppie) {
+		this.nome = nome;
+		this.tipologia = tipologia;
+		this.collocazioneFisica = collocazioneFisica;
+		this.numeroStanzeSingole = numeroStanzeSingole;
+		this.numeroStanzeDoppie = numeroStanzeDoppie;
+		
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getTipologia() {
+		return tipologia;
+	}
+
+	public void setTipologia(String tipologia) {
+		this.tipologia = tipologia;
+	}
+
+	public String getCollocazioneFisica() {
+		return collocazioneFisica;
+	}
+
+	public void setCollocazioneFisica(String collocazioneFisica) {
+		this.collocazioneFisica = collocazioneFisica;
+	}
+
+	public int getNumeroStanzeSingole() {
+		return numeroStanzeSingole;
+	}
+
+	public void setNumeroStanzeSingole(int numeroStanzeSingole) {
+		this.numeroStanzeSingole = numeroStanzeSingole;
+	}
+
+	public int getNumeroStanzeDoppie() {
+		return numeroStanzeDoppie;
+	}
+
+	public void setNumeroStanzeDoppie(int numeroStanzeDoppie) {
+		this.numeroStanzeDoppie = numeroStanzeDoppie;
+	}
+	
+	public void aggiungiPersonale(OperatoreSanitario m){
+		this.pr = new PersonaleReparto(this.nome, utility.OperazioniData.getDataAttuale(), m);
+		personale.add(pr);
+	}
+	
+	
+	
+	public void getPersonale(){
+		for(PersonaleReparto personaleReparto : personale)
+			personaleReparto.getPersonale();
+	}
+
+	@Override
+	public String toString() {
+		return "Reparto [nome=" + nome + ", tipologia=" + tipologia + ", collocazioneFisica=" + collocazioneFisica
+				+ ", numeroStanzeSingole=" + numeroStanzeSingole + ", numeroStanzeDoppie=" + numeroStanzeDoppie
+				+ ", pr=" + pr + "]";
+	}
+	
+  
+	
+}
